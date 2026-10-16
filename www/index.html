@@ -742,7 +742,7 @@
   ];
   // [название, редкость(0-4), цвет тела, аксессуар]
   var NFT_CASES = [
-    { id: "pig", name: "Свинки", animal: "pig", price: 200000, rtp: 0.88, tag: "Розовое хрюканье",
+    { id: "pig", name: "Жир", animal: "pig", price: 200000, rtp: 0.88, tag: "Розовое хрюканье",
       items: [
         ["Хрюша", 0, "pink", ""], ["Поросёнок-грязнуля", 0, "mud", ""], ["Тихоня", 0, "light", ""],
         ["Свин в очках", 1, "pink", "shades"], ["Бизнес-боров", 1, "light", "bowtie"],
@@ -931,7 +931,7 @@
     var win = rollNft(c);
     nft.inv[win.id] = (nft.inv[win.id] || 0) + 1;
     nftSave(); render();
-    $("nftResult").innerHTML = ""; nftMsg("");
+    $("nftResult").innerHTML = ""; nftMsg("Открываем кейс «" + c.name + "»…");
     var strip = $("nftStrip"), W = 110, GAP = 8, IDX = 34, LEN = 42, html = "";
     for (var i = 0; i < LEN; i++) {
       var x = i === IDX ? win : rollNft(c), r = RARITIES[x.rar];
@@ -946,7 +946,7 @@
     setTimeout(function () {
       nftBusy = false;
       var r = RARITIES[win.rar];
-      $("nftResult").innerHTML = '<div class="nres" style="--rc:' + r.color + '">' + itemTile(win, 0) + '<div class="nres-t">Выпало: <b style="color:' + r.color + '">' + win.name + "</b><br>" + r.name + " · стоимость " + fmt(win.value) +
+      $("nftResult").innerHTML = '<div class="nres" style="--rc:' + r.color + '">' + itemTile(win, 0) + '<div class="nres-t">Кейс «' + c.name + '»<br>Выпало: <b style="color:' + r.color + '">' + win.name + "</b><br>" + r.name + " · стоимость " + fmt(win.value) +
         (win.value >= c.price ? ' <span style="color:var(--win)">(в плюсе!)</span>' : "") + '<br><button class="btn small" data-quick="' + win.id + '">Продать сразу</button></div></div>';
       render();
     }, dur + 120);
