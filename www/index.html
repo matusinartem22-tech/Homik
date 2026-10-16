@@ -870,7 +870,7 @@
     var box = $("nftCases"); if (!box) return;
     if (!nftBusy || !box.innerHTML) {
       box.innerHTML = NFT_CASES.map(function (c) {
-        var show = c.list[c.list.length - 1], can = balance >= c.price && !nftBusy;
+        var show = c.list[0], can = balance >= c.price && !nftBusy;
         var rows = c.list.slice().sort(function (a, b) { return b.rar - a.rar; }).map(function (x) { return itemTile(x, 0); }).join("");
         return '<div class="card ncase"><div class="ncase-head"><div class="ncase-art">' + nftArt(show) + '</div><div><h3>' + c.name + '</h3><div class="hint" style="margin:0">' + c.tag + '</div>' +
           '<div class="hint" style="margin:4px 0 0">Шанс легендарки: ' + (RARITIES[4].w * 100).toFixed(1).replace(".", ",") + '%</div></div></div>' +
