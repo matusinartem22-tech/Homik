@@ -57,10 +57,11 @@ function draw(){
   (f=="Все"||(f.startsWith("★")?fav.includes(i):b.s==f))&&
   (b.t+b.a+b.s+b.d.join()+b.k.join()).toLowerCase().includes(q)).map(({b,i})=>`
  <div class="card" style="--c:${b.c}" id="c${i}">
- <div class="top"><div onclick="document.getElementById('c${i}').classList.toggle('open')"><h2>${b.t}</h2><div class="meta">${b.a} · ${b.p}</div></div>
+ <div class="top"><div onclick="go(${i})" style="flex:1"><h2>${b.t} ↗</h2><div class="meta">${b.a} · нажми, чтобы открыть краткое содержание</div><a class="btn" style="background:none;color:var(--ac);padding:4px 0" href="javascript:void(0)" onclick="event.stopPropagation();document.getElementById('c${i}').classList.toggle('open')">Темы и понятия ▾</a></div>
  <button class="fav" onclick="tg(${i})">${fav.includes(i)?"★":"☆"}</button></div>
  <div class="det"><b>Основные темы</b><ul>${b.d.map(x=>`<li>${x}</li>`).join("")}</ul><b>Ключевые понятия</b><ul>${b.k.map(x=>`<li>${x}</li>`).join("")}</ul>
- <a class="btn" target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(b.t+' '+b.a+' электронная форма')}">Найти официальную версию</a></div></div>`).join("")||"<p>Ничего не найдено</p>"}
+ </div></div>`).join("")||"<p>Ничего не найдено</p>"}
+function go(i){const b=B[i];window.open("https://yandex.ru/search/?text="+encodeURIComponent(b.t.replace(/\(.*?\)/g,"")+" краткое содержание по параграфам"),"_blank")}
 function tg(i){fav=fav.includes(i)?fav.filter(x=>x!=i):[...fav,i];try{localStorage.setItem("fav",JSON.stringify(fav))}catch(e){}draw()}
 document.getElementById("q").oninput=draw;bar();draw();
 </script></body></html>
