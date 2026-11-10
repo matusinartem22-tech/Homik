@@ -47,6 +47,7 @@ const B=[
 {s:"Информатика",t:"Информатика 7, часть 2 (углублённый уровень)",a:"Л. Л. Босова, А. Ю. Босова, Н. А. Аквилянов",p:"Просвещение",c:"#7b5cd6",
  d:["Работа с текстом и графикой","Мультимедиа","Основы алгоритмизации (по оглавлению учебника)"],k:["алгоритм","текстовый редактор","растр и вектор"]}
 ];
+const U={"Физика": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-fizika-7-klass-uchebnik/", "История Нового времени": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-7-klass-medinskiy-chubariyan/", "История России": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-7-klass-medinskiy-torkunov/", "География": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-geografiya-7-klass-uchebnik/", "Биология": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-7-klass-pasechnik/", "Литература": "https://gdzbakulin.ru/7-klass/literatura/korovina-7-klass/", "Информатика": "https://reshak.ru/reshebniki/informatika/7/bosova_ugl/index.html"};
 let fav=[],f="Все",ok=true;
 try{fav=JSON.parse(localStorage.getItem("fav")||"[]")}catch(e){}
 const subs=["Все","★ Избранное",...new Set(B.map(x=>x.s))];
@@ -61,7 +62,7 @@ function draw(){
  <button class="fav" onclick="tg(${i})">${fav.includes(i)?"★":"☆"}</button></div>
  <div class="det"><b>Основные темы</b><ul>${b.d.map(x=>`<li>${x}</li>`).join("")}</ul><b>Ключевые понятия</b><ul>${b.k.map(x=>`<li>${x}</li>`).join("")}</ul>
  </div></div>`).join("")||"<p>Ничего не найдено</p>"}
-function go(i){const b=B[i];window.open("https://yandex.ru/search/?text="+encodeURIComponent(b.t.replace(/\(.*?\)/g,"")+" краткое содержание по параграфам"),"_blank")}
+function go(i){const b=B[i];const k=Object.keys(U).find(x=>b.t.startsWith(x));window.open(k?U[k]:"https://yandex.ru/search/?text="+encodeURIComponent(b.t+" краткое содержание"),"_blank")}
 function tg(i){fav=fav.includes(i)?fav.filter(x=>x!=i):[...fav,i];try{localStorage.setItem("fav",JSON.stringify(fav))}catch(e){}draw()}
 document.getElementById("q").oninput=draw;bar();draw();
 </script></body></html>
