@@ -3,16 +3,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Учебники 7 класса</title>
 <style>
-:root{--bg:#f5f6fa;--card:#fff;--tx:#1d2330;--mut:#6b7385;--ac:#2f6fed;--now:#e8f0ff}
-@media(prefers-color-scheme:dark){:root{--bg:#12151c;--card:#1c212c;--tx:#e8ebf2;--mut:#98a0b3;--ac:#6b9bff;--now:#26324d}}
+:root{--bg:#f5f6fa;--card:#fff;--tx:#1d2330;--mut:#6b7385;--ac:#2f6fed}
+@media(prefers-color-scheme:dark){:root{--bg:#12151c;--card:#1c212c;--tx:#e8ebf2;--mut:#98a0b3;--ac:#6b9bff}}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--tx);padding:12px;padding-top:max(12px,env(safe-area-inset-top))}
 h1{font-size:20px;margin:4px 0 10px}
 input{width:100%;padding:12px;border-radius:12px;border:1px solid #8884;background:var(--card);color:var(--tx);font-size:16px}
 .bar{display:flex;gap:8px;margin:10px 0;overflow-x:auto}
 .chip{padding:6px 12px;border-radius:99px;background:var(--card);border:1px solid #8884;white-space:nowrap;font-size:14px;color:var(--tx)}
 .chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.tabs{display:flex;gap:8px;margin-bottom:6px}
-.tabs .chip{flex:1;text-align:center;font-size:15px;padding:9px 12px}
 .card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;border-left:6px solid var(--c)}
 .top{display:flex;justify-content:space-between;align-items:start;gap:8px}
 .card h2{font-size:17px;margin:0}.meta{color:var(--mut);font-size:13px;margin:4px 0}
@@ -21,34 +19,14 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #8884;backgrou
 .det b{display:block;margin-top:6px}ul{margin:4px 0;padding-left:20px}
 a.btn{display:inline-block;margin-top:10px;padding:9px 14px;background:var(--ac);color:#fff;border-radius:10px;text-decoration:none;font-size:14px}
 .note{color:var(--mut);font-size:12px;margin:14px 0}
-.sh{display:none}.sh.on{display:block}
-.row{display:flex;gap:12px;align-items:center;background:var(--card);border-radius:12px;padding:11px 12px;margin-bottom:8px;border-left:6px solid #8884}
-.row.now{background:var(--now);border-left-color:var(--ac)}
-.row.kch{opacity:.75}
-.num{width:26px;font-weight:700;font-size:18px;text-align:center;color:var(--ac)}
-.tm{width:84px;font-size:13px;color:var(--mut);line-height:1.3}
-.nm{flex:1;font-size:15px;font-weight:600}.nm small{display:block;font-weight:400;color:var(--mut);font-size:12px;margin-top:2px}
-.rm{font-size:15px;font-weight:700;min-width:44px;text-align:right}
-.hd{color:var(--mut);font-size:13px;margin:4px 2px 10px}
+summary{list-style:none;cursor:pointer}summary::-webkit-details-marker{display:none}
 </style></head><body>
-<div class="tabs"><button class="chip on" id="t1" onclick="tab(1)">📚 Учебники</button><button class="chip" id="t2" onclick="tab(2)">🗓 Расписание 7-В</button></div>
-
-<div class="sh on" id="s1">
-<h1>📚 Учебники 7 класса</h1>
-<input id="q" placeholder="Поиск: предмет, автор, тема…">
+<h1>📚 Школа 7 класс</h1>
+<div class="bar"><button class="chip on" id="t1" onclick="tab(1)">Учебники</button><button class="chip" id="t2" onclick="tab(2)">🚌 Расписание</button></div>
+<div id="v1"><input id="q" placeholder="Поиск: предмет, автор, тема…">
 <div class="bar" id="bar"></div>
 <div id="list"></div>
-<p class="note">Краткая справка — примерные темы по программе. Точное содержание смотри в оглавлении своего учебника. Полные тексты учебников защищены авторским правом: читай их на официальных ресурсах издательства.</p>
-</div>
-
-<div class="sh" id="s2">
-<h1>🗓 7-В · 2 смена</h1>
-<div class="bar" id="dbar"></div>
-<div class="hd" id="dhd"></div>
-<div id="sl"></div>
-<p class="note">Составлено по фото расписания на стенде. Расписание может меняться — сверяйся со стендом. «Привед./Левина» — группы по английскому, «гр. Привед.» — группа по информатике.</p>
-</div>
-
+<p class="note">Краткая справка — примерные темы по программе. Точное содержание смотри в оглавлении своего учебника. Полные тексты учебников защищены авторским правом: читай их на официальных ресурсах издательства.</p></div><div id="v2" style="display:none"></div>
 <script>
 const B=[
 {s:"Физика",t:"Физика 7 (базовый уровень)",a:"И. М. Перышкин, А. И. Иванов",p:"Просвещение",c:"#e0572f",
@@ -64,58 +42,3 @@ const B=[
  d:["Правление Ивана IV Грозного","Смутное время","Начало династии Романовых","Правление Алексея Михайловича, Соборное уложение, церковный раскол","Присоединение Сибири, народные восстания"],k:["опричнина","Смута","Земский собор","раскол"]},
 {s:"История",t:"История Нового времени, конец XV–XVII в.",a:"В. Р. Мединский, А. О. Чубарьян",p:"Просвещение",c:"#3a7bd5",
  d:["Великие географические открытия","Реформация и Контрреформация","Абсолютизм и революции в Европе","Страны Востока: Индия, Китай, Япония"],k:["Возрождение","Реформация","колонизация"]},
-{s:"География",t:"География 7 («Полярная звезда»)",a:"см. обложку своего учебника",p:"Просвещение",c:"#c9a400",
- d:["Главные особенности природы Земли","Материки: Африка, Австралия, Антарктида, Америки, Евразия","Океаны","Население и страны мира"],k:["материк","климатический пояс","литосферные плиты"]},
-{s:"Информатика",t:"Информатика 7, часть 1 (углублённый уровень)",a:"Л. Л. Босова, А. Ю. Босова, Н. А. Аквилянов",p:"Просвещение",c:"#7b5cd6",
- d:["Информация и информационные процессы","Компьютер и его устройство","Представление информации, измерение её объёма"],k:["бит, байт","кодирование","файловая система"]},
-{s:"Информатика",t:"Информатика 7, часть 2 (углублённый уровень)",a:"Л. Л. Босова, А. Ю. Босова, Н. А. Аквилянов",p:"Просвещение",c:"#7b5cd6",
- d:["Работа с текстом и графикой","Мультимедиа","Основы алгоритмизации (по оглавлению учебника)"],k:["алгоритм","текстовый редактор","растр и вектор"]}
-];
-const U={"Физика": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-fizika-7-klass-uchebnik/", "История Нового времени": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-7-klass-medinskiy-chubariyan/", "История России": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-7-klass-medinskiy-torkunov/", "География": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-geografiya-7-klass-uchebnik/", "Биология": "https://gdzbakulin.ru/7-klass/kratkie-soderzhaniya/kratkiy-pereskaz-7-klass-pasechnik/", "Литература": "https://obrazovaka.ru/books/7-klass", "Информатика": "https://reshak.ru/reshebniki/informatika/7/bosova_ugl/index.html"};
-let fav=[],f="Все",ok=true;
-try{fav=JSON.parse(localStorage.getItem("fav")||"[]")}catch(e){}
-const subs=["Все","★ Избранное",...new Set(B.map(x=>x.s))];
-function bar(){document.getElementById("bar").innerHTML=subs.map(x=>`<button class="chip ${x==f?"on":""}" onclick="f='${x}';bar();draw()">${x}</button>`).join("")}
-function draw(){
- const q=document.getElementById("q").value.toLowerCase();
- document.getElementById("list").innerHTML=B.map((b,i)=>({b,i})).filter(({b,i})=>
-  (f=="Все"||(f.startsWith("★")?fav.includes(i):b.s==f))&&
-  (b.t+b.a+b.s+b.d.join()+b.k.join()).toLowerCase().includes(q)).map(({b,i})=>`
- <div class="card" style="--c:${b.c}" id="c${i}">
- <div class="top"><div onclick="go(${i})" style="flex:1"><h2>${b.t} ↗</h2><div class="meta">${b.a} · нажми, чтобы открыть краткое содержание</div><a class="btn" style="background:none;color:var(--ac);padding:4px 0" href="javascript:void(0)" onclick="event.stopPropagation();document.getElementById('c${i}').classList.toggle('open')">Темы и понятия ▾</a></div>
- <button class="fav" onclick="tg(${i})">${fav.includes(i)?"★":"☆"}</button></div>
- <div class="det"><b>Основные темы</b><ul>${b.d.map(x=>`<li>${x}</li>`).join("")}</ul><b>Ключевые понятия</b><ul>${b.k.map(x=>`<li>${x}</li>`).join("")}</ul>
- </div></div>`).join("")||"<p>Ничего не найдено</p>"}
-function go(i){const b=B[i];const k=Object.keys(U).find(x=>b.t.startsWith(x));window.open(k?U[k]:"https://yandex.ru/search/?text="+encodeURIComponent(b.t+" краткое содержание"),"_blank")}
-function tg(i){fav=fav.includes(i)?fav.filter(x=>x!=i):[...fav,i];try{localStorage.setItem("fav",JSON.stringify(fav))}catch(e){}draw()}
-document.getElementById("q").oninput=draw;bar();draw();
-
-/* ===== Расписание 7-В, 2 смена ===== */
-// звонки: [метка, начало, конец]
-const BELL_A=[["0","12:20","13:00"],["1","13:20","14:00"],["2","14:15","14:55"],["3","15:10","15:50"],["КЧ","16:05","16:35"],["4","16:40","17:20"],["5","17:30","18:10"],["6","18:20","19:00"]]; // пн, чт
-const BELL_B=[["0","11:50","12:30"],["1","12:50","13:30"],["2","13:50","14:30"],["3","14:45","15:25"],["4","15:40","16:20"],["5","16:30","17:10"],["6","17:20","18:00"]]; // вт, ср, пт
-// уроки: "предмет|кабинет|примечание" по порядку звонков
-const DAYS={
- 1:{n:"Понедельник",b:BELL_A,l:["Английский|23/39|гр. Привед. / Левина","История|37","Алгебра|31","Русский язык|28","Классный час","География|29","Русский язык|28"]},
- 2:{n:"Вторник",b:BELL_B,l:["ИЗО|30","Геометрия|31","Литература|28","Информатика / Английский|38/23|гр. Привед.","Физика|40","Биология|25","Физкультура"]},
- 3:{n:"Среда",b:BELL_B,l:["Алгебра|31","Русский язык|28","История|35","Информатика / Английский|38/23|гр. Привед.","География|29","Литература|28","Информатика / Английский|38/20|гр. Левина"]},
- 4:{n:"Четверг",b:BELL_A,l:["Труд","Труд","Геометрия|31","Вероятность и статистика|31","Классный час","Музыка|30","Информатика|38|гр. Привед."]},
- 5:{n:"Пятница",b:BELL_B,l:["Физкультура","Алгебра|31","Алгебра|31","Русский язык|28","Физика|40","История|35"]}
-};
-let day=new Date().getDay();if(day<1||day>5)day=1;
-function tab(n){
- document.getElementById("s1").classList.toggle("on",n==1);document.getElementById("s2").classList.toggle("on",n==2);
- document.getElementById("t1").classList.toggle("on",n==1);document.getElementById("t2").classList.toggle("on",n==2);
- if(n==2)sched()}
-function mins(s){const[a,b]=s.split(":");return +a*60+ +b}
-function sched(){
- document.getElementById("dbar").innerHTML=Object.keys(DAYS).map(k=>`<button class="chip ${k==day?"on":""}" onclick="day=${k};sched()">${DAYS[k].n.slice(0,2)}</button>`).join("");
- const D=DAYS[day],now=new Date(),isToday=now.getDay()==day,nm=now.getHours()*60+now.getMinutes();
- document.getElementById("dhd").textContent=D.n+" · "+D.l.filter(x=>!x.startsWith("Классный")).length+" уроков · начало в "+D.b[0][1];
- document.getElementById("sl").innerHTML=D.l.map((x,i)=>{
-  const [name,room,note]=x.split("|"),bl=D.b[i],kch=name=="Классный час";
-  const cur=isToday&&nm>=mins(bl[1])&&nm<mins(bl[2]);
-  return `<div class="row ${cur?"now":""} ${kch?"kch":""}"><div class="num">${kch?"•":bl[0]}</div><div class="tm">${bl[1]}<br>${bl[2]}</div><div class="nm">${name}${note?`<small>${note}</small>`:""}</div><div class="rm">${room||""}</div></div>`}).join("")}
-sched();
-setInterval(()=>{if(document.getElementById("s2").classList.contains("on"))sched()},60000);
-</script></body></html>
